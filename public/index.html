@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pets App</title>
+</head>
+<body>
+    <h1>Pets Information</h1>
+    <button id="loadPets">Load All Pets</button>
+    <div id="pets"></div>
+
+    <script>
+        document.getElementById('loadPets').addEventListener('click', function() {
+          fetch('/api/v1/pets')
+            .then(response => response.json())
+            .then(pets => {
+              const petsElement = document.getElementById('pets');
+              petsElement.innerHTML = pets.map(pet => `<p>${pet.name} owned by ${pet.owner}</p>`).join('');
+            })
+            .catch(error => console.error('Error loading pets:', error));
+        });
+    </script>
+        
+</body>
+</html>
